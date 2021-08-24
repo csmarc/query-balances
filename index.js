@@ -1,5 +1,5 @@
 import { BlockchainUtils, connect, disconnect, Identity, init} from '@kiltprotocol/sdk-js';
-
+import BN from 'bn.js';
 
 // Convert a big number balance to expected float with correct units.
 function toUnit(balance) {
@@ -17,17 +17,18 @@ async function main() {
 
   const bc = await connect();
   console.log(bc.api.genesisHash.toHex());
-  const type1 = bc.api.createType('Option<AccountId>');
-  // console.log(type1);
-  const query = (await bc.api.query.system.account.entries()).map(([key, value]) => [key.args, k.value]);
-  // const query = (await bc.api.query.system.account.entries()).toJSON();
+  const query = (await bc.api.query.system.account.entries());
+  // const entries = query.map(([key, value]) => [key.args, k.value])
+  console.log(query[0]);
+  console.log('address;        free balance');
+  query.forEach(([key, account]) => {
+    console.log(`${key.args.map((k) => k.toHuman())[0]}; ${account.data.free.toString()}`);
+  });
 
-  // console.log(typeof query.data.free.words);
-  // console.log(query.data.free.toHuman());
-  console.log(query);
+  // const a = new BN('000000000000000d8d726b7177a80000', 16);
+  // console.log(a.toString(10));
+  // console.log(toUnit(a.toString(10)))
 
 }
 main().finally(disconnect);
 
-// const a = new BN('000000000000000d8d726b7177a80000', 16);
-// console.log(a.toString(10));
