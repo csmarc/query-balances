@@ -1,0 +1,11 @@
+{
+  "name": "query_with_kilt-sdk",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "author": "csmarc <marton.csernai@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@kiltprotocol/sdk-js": "^0.22.1"
+  }
+}
